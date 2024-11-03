@@ -1,0 +1,65 @@
+"use client";
+
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { CiMenuFries } from "react-icons/ci";
+
+const links = [
+  {
+    name: "Strona główna",
+    path: "/",
+  },
+  {
+    name: "Usługi",
+    path: "/uslugi",
+  },
+  {
+    name: "Informacje",
+    path: "/informacje",
+  },
+  {
+    name: "Praca",
+    path: "/praca",
+  },
+  {
+    name: "Kontakt",
+    path: "/kontakt",
+  },
+];
+
+const MobileNav = () => {
+  const pathname = usePathname();
+  return (
+    <Sheet>
+      <SheetTrigger className="flex justify-center items-center">
+        <CiMenuFries className="text-[32px] text-yellow" />
+      </SheetTrigger>
+      <SheetContent className="flex flex-col">
+        <div className="mt-32 mb-40 text-center text-2xl">
+          <Link href="/">
+            <h1 className="text-4xl font-semibold">GoldenEdge</h1>
+          </Link>
+        </div>
+        <nav className="flex flex-col justify-center items-center gap-8">
+          {links.map((link, index) => {
+            return (
+              <Link
+                href={link.path}
+                key={index}
+                className={`${
+                  link.path === pathname &&
+                  "text-yellow border-b-2 border-yellow"
+                } capitalize text-xl font-medium hover:text-yellow transition-all`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
+        </nav>
+      </SheetContent>
+    </Sheet>
+  );
+};
+
+export default MobileNav;
